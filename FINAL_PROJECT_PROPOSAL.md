@@ -34,8 +34,9 @@
 
 ## 4. ข้อมูลมาจากไหน + จุดที่ต้องเขียนข้อมูลกลับ
 
-- แหล่งข้อมูล: Supabase เช่น ตาราง `reports` และ `profiles`
-- รูปภาพ: Supabase Storage
+- แหล่งข้อมูล: SQLite ผ่าน `@libsql/client` โดยใช้ตาราง `reports` และ owner id
+- Production database: Turso/libSQL ซึ่งเป็น SQLite-compatible และเชื่อมกับ Vercel ผ่าน environment variables
+- รูปภาพ: รับไฟล์ JPG/PNG ขนาดไม่เกิน 2MB แล้วเก็บเป็น data URL ใน SQLite เพื่อไม่ต้องใช้ storage service เพิ่ม
 - ข้อมูลที่เก็บ: ชื่อสิ่งของ ประเภท รูปภาพ สถานที่ วันที่ รายละเอียด ช่องทางติดต่อ และสถานะว่า `ตามหาอยู่`, `พบแล้ว` หรือ `ปิดประกาศ`
 - Mutation:
   - `POST /api/reports` สำหรับสร้างประกาศ
@@ -46,5 +47,5 @@
 ## 5. แบ่งงานกันยังไง
 
 - [ภูริวัชร สุภัคกนก]: หน้าแรก รายการประกาศ หน้ารายละเอียด และการค้นหา/กรอง
-- [ฟ้าใส ปินตาคำ]: ฟอร์มแจ้งของหาย ระบบ validation การเชื่อมต่อ Supabase และหน้า `my-reports`
+- [ฟ้าใส ปินตาคำ]: ฟอร์มแจ้งของหาย ระบบ validation การเชื่อมต่อ SQLite/Turso และหน้า `my-reports`
 ```
