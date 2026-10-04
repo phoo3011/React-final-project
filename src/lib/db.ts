@@ -1,7 +1,12 @@
 import { createClient } from "@libsql/client";
+import { mkdirSync } from "node:fs";
 import path from "node:path";
 
-const localDatabaseUrl = `file:${path.join(process.cwd(), "data", "camt.db")}`;
+const localDatabasePath = path.join(process.cwd(), "data", "camt.db");
+const localDatabaseUrl = `file:${localDatabasePath}`;
+if (!process.env.TURSO_DATABASE_URL && !process.env.DATABASE_URL) {
+  mkdirSync(path.dirname(localDatabasePath), { recursive: true });
+}
 export const db = createClient({
   url: process.env.TURSO_DATABASE_URL ?? process.env.DATABASE_URL ?? localDatabaseUrl,
   authToken: process.env.TURSO_AUTH_TOKEN,
