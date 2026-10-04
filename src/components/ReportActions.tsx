@@ -1,0 +1,7 @@
+"use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import type { Report, ReportStatus } from "@/lib/data";
+import { useReportStore } from "@/lib/report-store";
+export default function ReportActions({ report }: { report: Report }) { const router = useRouter(); const removeReport = useReportStore((state) => state.removeReport); const [error, setError] = useState(""); async function updateStatus(status: ReportStatus) { const response = await fetch(`/api/reports/${report.id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ status }) }); if (!response.ok) { setError("เปลี่ยนสถานะไม่สำเร็จ"); return; } setError(""); router.refresh(); } async function remove() { if (!window.confirm("ต้องการลบประกาศนี้หรือไม่?")) return; const response = await fetch(`/api/reports/${report.id}`, { method: "DELETE" }); if (response.ok) { removeReport(report.id); router.refresh(); } else setError("ลบประกาศไม่สำเร็จ"); } return <div className="actions"><Link href={`/report/${report.id}`} className="meta">แก้ไข</Link><select value={report.status} onChange={(event) => updateStatus(event.target.value as ReportStatus)}><option>ตามหาอยู่</option><option>พบแล้ว</option><option>ปิดประกาศ</option></select><button type="button" className="text-button" onClick={remove}>ลบ</button>{error && <span className="form-error">{error}</span>}</div>; }

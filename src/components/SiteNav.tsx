@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function SiteNav() { return <header className="nav"><Link className="brand" href="/"><span className="brand-mark">C</span> CAMT Lost & Found</Link><nav className="nav-links"><Link href="/items">ประกาศทั้งหมด</Link><Link href="/my-reports">ประกาศของฉัน</Link><Link href="/login">เข้าสู่ระบบ</Link></nav><Link className="primary" href="/report">+ แจ้งประกาศ</Link></header>; }

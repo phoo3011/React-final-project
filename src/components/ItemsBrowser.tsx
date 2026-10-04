@@ -1,0 +1,6 @@
+"use client";
+import { useState } from "react";
+import type { Report } from "@/lib/data";
+import { categories } from "@/lib/data";
+import ReportCard from "@/components/ReportCard";
+export default function ItemsBrowser({ initialReports, initialQuery }: { initialReports: Report[]; initialQuery: string }) { const [query, setQuery] = useState(initialQuery); const [category, setCategory] = useState("ทั้งหมด"); const filtered = initialReports.filter((report) => `${report.title} ${report.location} ${report.category}`.toLowerCase().includes(query.toLowerCase()) && (category === "ทั้งหมด" || report.category === category)); return <><div className="filters"><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="ค้นหาประกาศ..." /><select value={category} onChange={(event) => setCategory(event.target.value)}><option>ทั้งหมด</option>{categories.map((item) => <option key={item}>{item}</option>)}</select></div>{filtered.length ? <div className="item-grid">{filtered.map((report) => <ReportCard key={report.id} report={report} />)}</div> : <div className="empty">ไม่พบประกาศที่ตรงกับการค้นหา</div>}</>; }

@@ -1,0 +1,5 @@
+import { NextResponse } from "next/server";
+import { clearSessionCookie, loginUser, registerUser, sessionCookie } from "@/lib/auth";
+
+export async function POST(request: Request) { const body = await request.json(); const studentId = String(body.studentId ?? "").trim(); const name = String(body.name ?? "").trim(); const password = String(body.password ?? ""); const mode = body.mode === "register" ? "register" : "login"; if (!studentId || !password || (mode === "register" && !name)) return NextResponse.json({ error: "กรุณากรอกข้อมูลให้ครบ" }, { status: 400 }); try { const id = mode === "register" ? await registerUser(studentId, name, password) : await loginUser(studentId, password); if (!id) return NextResponse.json({ error: "รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง" }, { status: 401 }); const response = NextResponse.json({ id }); response.headers.set("set-cookie", sessionCookie(id)); return response; } catch { return NextResponse.json({ error: "รหัสนักศึกษานี้ถูกใช้แล้ว" }, { status: 409 }); } }
+export async function DELETE() { const response = NextResponse.json({ ok: true }); response.headers.set("set-cookie", clearSessionCookie()); return response; }

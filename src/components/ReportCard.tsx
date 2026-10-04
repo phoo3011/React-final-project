@@ -1,0 +1,3 @@
+import Link from "next/link";
+import type { Report } from "@/lib/data";
+export default function ReportCard({ report }: { report: Report }) { return <Link className="item-card" href={`/items/${report.id}`}><div className="item-image">{report.image ? <img src={report.image} alt={report.title} /> : report.emoji}</div><div className="item-body"><span className={`tag ${report.type === "ของที่พบ" ? "found" : ""}`}>{report.type}</span><h3 className="item-title">{report.title}</h3><div className="meta">{report.location} · {report.date}</div></div></Link>; }

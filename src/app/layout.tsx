@@ -1,0 +1,15 @@
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "CAMT Lost & Found",
+  description: "ศูนย์กลางประกาศของหายและของที่พบสำหรับชาว CAMT",
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html lang="th">
+      <body>{children}</body>
+    </html>
+  );
+}
