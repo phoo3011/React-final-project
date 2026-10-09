@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
+import { Inter, Noto_Sans_Thai } from "next/font/google";
+import SiteFooter from "@/components/SiteFooter";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import { getDictionary } from "@/lib/i18n";
+import { getLang } from "@/lib/i18n-server";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "CAMT Lost & Found",
-  description: "ศูนย์กลางประกาศของหายและของที่พบสำหรับชาว CAMT",
-};
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const notoThai = Noto_Sans_Thai({ subsets: ["thai", "latin"], variable: "--font-thai", display: "swap" });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export async function generateMetadata(): Promise<Metadata> {
+  const { meta } = getDictionary(await getLang());
+  return { title: meta.title, description: meta.description };
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const lang = await getLang();
   return (
-    <html lang="th">
-      <body>{children}</body>
+    <html lang={lang} className={`${inter.variable} ${notoThai.variable}`}>
+      <body>
+        <LanguageProvider initialLang={lang}>
+          {children}
+          <SiteFooter />
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

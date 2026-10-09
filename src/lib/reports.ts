@@ -2,7 +2,7 @@ import { db, ensureDatabase } from "@/lib/db";
 import type { Report } from "@/lib/data";
 import type { ReportFormValues } from "@/lib/validation";
 
-function mapReport(row: Record<string, unknown>): Report { return row as Report; }
+function mapReport(row: Record<string, unknown>): Report { return { ...row } as Report; }
 export async function listReports(owner?: string) { await ensureDatabase(); const result = owner ? await db.execute({ sql: "SELECT * FROM reports WHERE owner = ? ORDER BY rowid DESC", args: [owner] }) : await db.execute("SELECT * FROM reports ORDER BY rowid DESC"); return result.rows.map((row) => mapReport(row)); }
 export async function getReport(id: string) { await ensureDatabase(); const result = await db.execute({ sql: "SELECT * FROM reports WHERE id = ? LIMIT 1", args: [id] }); return result.rows[0] ? mapReport(result.rows[0]) : undefined; }
 export async function createReport(input: ReportFormValues, owner: string) { await ensureDatabase(); const id = `r-${Date.now()}`; await db.execute({ sql: "INSERT INTO reports (id, title, type, category, location, date, description, contact, status, emoji, owner, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", args: [id, input.title, input.type, input.category, input.location, input.date, input.description, input.contact, "ตามหาอยู่", input.emoji, owner, input.image ?? ""] }); return getReport(id); }
