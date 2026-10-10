@@ -56,6 +56,8 @@ h3 { margin: 0; font-size: 18px; line-height: 1.4; }
 .nav-links a { position: relative; display: flex; align-items: center; height: 64px; color: var(--ink); font-size: 14px; font-weight: 400; letter-spacing: .3px; }
 .nav-links a.active::after, .nav-links a:hover::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--ink); }
 .nav-links a.primary::after { display: none; }
+.nav-user { display: flex; align-items: center; height: 64px; border: 0; background: transparent; padding: 0; color: var(--ink); font: inherit; font-size: 14px; letter-spacing: .3px; cursor: pointer; }
+.nav-user:hover { text-decoration: underline; text-underline-offset: 4px; }
 .nav-links a.nav-cta-mobile, .burger { display: none; }
 .lang-switch { display: flex; align-items: center; }
 .lang-switch button { height: 40px; padding: 0 12px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; font-weight: 400; letter-spacing: 1.5px; }
@@ -181,6 +183,7 @@ input, select, textarea { color: var(--ink); }
   .burger span { display: block; height: 2px; background: var(--ink); }
   .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 0; padding: 8px 16px 24px; background: var(--canvas); border-bottom: 1px solid var(--hairline); }
   .nav-links.open { display: flex; }
+  .nav-user { height: 56px; border-bottom: 1px solid var(--hairline); font-size: 16px; }
   .nav-links a { height: 56px; border-bottom: 1px solid var(--hairline); font-size: 16px; }
   .nav-links a.active::after, .nav-links a:hover::after { display: none; }
   .nav-links a.nav-cta-mobile { display: inline-flex; justify-content: center; height: 48px; margin-top: 24px; border: 0; color: var(--on-dark); }

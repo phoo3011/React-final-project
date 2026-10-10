@@ -1,18 +1,27 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import LanguageSwitch from "@/components/LanguageSwitch";
+import { useAuth } from "@/components/AuthProvider";
 import { useI18n } from "@/components/LanguageProvider";
 
 export default function SiteNav() {
   const pathname = usePathname();
   const { d } = useI18n();
+  const router = useRouter();
+  const user = useAuth();
   const [open, setOpen] = useState(false);
+  async function logout() {
+    setOpen(false);
+    await fetch("/api/auth", { method: "DELETE" });
+    router.push("/");
+    router.refresh();
+  }
   const links = [
     { href: "/items", label: d.nav.items },
     { href: "/my-reports", label: d.nav.mine },
-    { href: "/login", label: d.nav.login },
+    ...(user ? [] : [{ href: "/login", label: d.nav.login }]),
   ];
   return (
     <header className="nav">
@@ -28,6 +37,7 @@ export default function SiteNav() {
               {link.label}
             </Link>
           ))}
+          {user && <button type="button" className="nav-user" onClick={logout} title={user.studentId}>{d.nav.logout} ({user.name})</button>}
           <Link className="primary nav-cta-mobile" href="/report" onClick={() => setOpen(false)}>{d.nav.report}</Link>
         </nav>
         <LanguageSwitch />

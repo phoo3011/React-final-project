@@ -13,7 +13,7 @@ const en = {
     title: "CAMT Lost & Found",
     description: "A central board for lost and found items for the CAMT community",
   },
-  nav: { items: "All posts", mine: "My posts", login: "Sign in", report: "+ New post", menu: "Menu", language: "Language" },
+  nav: { items: "All posts", mine: "My posts", login: "Sign in", report: "+ New post", menu: "Menu", language: "Language", logout: "Sign out" },
   home: {
     eyebrow: "CAMT COMMUNITY BOARD · 2026",
     title: "Lost something? You don't have to search alone.",
@@ -134,6 +134,8 @@ const en = {
     "รหัสนักศึกษานี้ถูกใช้แล้ว": "This student ID is already registered",
     "รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง": "Incorrect student ID or password",
     "กรุณาเข้าสู่ระบบ": "Please sign in",
+    "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร": "Password must be at least 6 characters",
+    "ระบบขัดข้อง กรุณาลองใหม่อีกครั้ง": "Something went wrong. Please try again.",
     "ข้อมูลไม่ถูกต้อง": "Invalid data",
     "ไม่พบประกาศหรือไม่มีสิทธิ์ลบ": "Post not found, or you don't have permission to delete it",
     "ไม่พบประกาศหรือไม่มีสิทธิ์แก้ไข": "Post not found, or you don't have permission to edit it",
@@ -147,7 +149,7 @@ const th: Dictionary = {
     title: "CAMT Lost & Found",
     description: "ศูนย์กลางประกาศของหายและของที่พบสำหรับชาว CAMT",
   },
-  nav: { items: "ประกาศทั้งหมด", mine: "ประกาศของฉัน", login: "เข้าสู่ระบบ", report: "+ แจ้งประกาศ", menu: "เมนู", language: "ภาษา" },
+  nav: { items: "ประกาศทั้งหมด", mine: "ประกาศของฉัน", login: "เข้าสู่ระบบ", report: "+ แจ้งประกาศ", menu: "เมนู", language: "ภาษา", logout: "ออกจากระบบ" },
   home: {
     eyebrow: "CAMT COMMUNITY BOARD · 2026",
     title: "ของหายไม่ใช่เรื่องที่ต้องหาอยู่คนเดียว",
