@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Thai } from "next/font/google";
 import SiteFooter from "@/components/SiteFooter";
+import { AuthProvider } from "@/components/AuthProvider";
+import { currentProfile } from "@/lib/auth";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { getDictionary } from "@/lib/i18n";
 import { getLang } from "@/lib/i18n-server";
@@ -16,12 +18,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
+  const user = await currentProfile().catch(() => null);
   return (
     <html lang={lang} className={`${inter.variable} ${notoThai.variable}`}>
       <body>
         <LanguageProvider initialLang={lang}>
-          {children}
-          <SiteFooter />
+          <AuthProvider user={user}>
+            {children}
+            <SiteFooter />
+          </AuthProvider>
         </LanguageProvider>
       </body>
     </html>
